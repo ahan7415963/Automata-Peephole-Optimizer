@@ -112,6 +112,14 @@ TEST_CASES = [
         "expected_before": 3,
         "expected_after": 2,
         "expected_removed": 1
+    },
+    {
+        "id": "P8",
+        "file": "tests/p8_intervening_label_cascade.asm",
+        "desc": "Nearest-non-label rule (JMP L1; L0:; MOV; L1: -> L0,L1,HALT)",
+        "expected_before": 5,
+        "expected_after": 3,
+        "expected_removed": 2
     }
 ]
 
@@ -154,7 +162,7 @@ def run_all_tests():
     print("-" * 88)
     print(f"Total Test Suite Execution Time: {total_time:.2f} ms")
     if all_passed:
-        print(">> ALL 13 TEST CASES PASSED SUCCESSFULLY! <<")
+        print(">> ALL 14 TEST CASES (T1-T13 + P8) PASSED SUCCESSFULLY! <<")
     else:
         print(">> SOME TEST CASES FAILED! <<")
     print("=" * 88)

@@ -127,9 +127,13 @@ def optimize(instrs):
                 log.append((ins['line'], ins['text'].strip(), reason))
                 del instrs[i]
                 removed_one = True
-                # Cascade awareness: removing an instruction can expose the previous instruction
-                # (e.g. JZ followed by a now-removed redundant MOV). Backtrack 1 step if possible.
-                i = max(0, i - 1)
+                # Nearest-non-label rule: removing an instruction can expose an earlier instruction
+                # (e.g., JMP L1 followed by label L0: and then a now-removed redundant MOV).
+                # Backtrack past any non-executable labels to the nearest preceding non-label instruction (or 0).
+                k = i - 1
+                while k > 0 and instrs[k]['kind'] == 'label':
+                    k -= 1
+                i = max(0, k)
             else:
                 i += 1
 
