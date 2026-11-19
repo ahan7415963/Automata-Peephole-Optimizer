@@ -1,0 +1,3 @@
+MOV R1, R2
+MOV R2, R1
+HALT

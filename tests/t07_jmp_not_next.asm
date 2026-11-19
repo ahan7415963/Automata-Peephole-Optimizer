@@ -1,0 +1,4 @@
+JMP L1
+ADD R1, R2
+L1:
+HALT
